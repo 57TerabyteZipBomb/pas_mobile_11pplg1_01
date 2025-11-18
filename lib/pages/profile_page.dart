@@ -11,17 +11,53 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            CustomButton(
-              onPressed: controller.logout,
-              text: "Log Out",
-              cancustomwidth: true,
-              customwidth: 300,
-            ),
-          ],
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Avatar
+              CircleAvatar(
+                radius: 55,
+                backgroundImage: AssetImage('assets/awesome.png'),
+              ),
+
+              SizedBox(height: 20),
+
+              // Info Card
+              Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Text("Gerrard Yazdan Arkinara",
+                          style: TextStyle(fontSize: 16)),
+                      SizedBox(height: 10),
+                      Text("11 PPLG 1, Absen 15",
+                          style: TextStyle(fontSize: 16)),
+                      SizedBox(height: 10),
+                      Text("gerrard.arkinara@gmail.com",
+                          style: TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 30),
+
+              // Logout Button
+              CustomButton(
+                onPressed: controller.logout,
+                text: "Log Out",
+                cancustomwidth: true,
+                customwidth: 300,
+              ),
+            ],
+          ),
         ),
       ),
     );

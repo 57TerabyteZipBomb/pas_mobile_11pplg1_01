@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pas_mobile_11pplg1_01/controllers/product_controller.dart';
+import 'package:pas_mobile_11pplg1_01/widgets/product_card.dart';
 
 class ProductsPage extends StatelessWidget {
   ProductsPage({super.key});
@@ -13,20 +14,24 @@ class ProductsPage extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Obx(() {
-          if (controller.isLoading.value == false) {
+          if (!controller.isLoading.value) {
             return RefreshIndicator(
               onRefresh: controller.fetchProducts,
               child: ListView.builder(
                 itemCount: controller.products.length,
-                itemBuilder: (context, index) {
+                itemBuilder: (_, index) {
                   final product = controller.products[index];
-                  return Card(
-                    child: ListTile(
-                      leading: Image.network(product.image),
-                      title: Text(product.title),
-                      subtitle: Text("${product.price} | ${product.category} | ${product.rating.rate} stars (${product.rating.count} reviews)"),
-                      trailing: IconButton(onPressed: controller.prodOnPress, icon: Icon(Icons.bookmark, color: const Color.fromARGB(255, 77, 77, 77),)),
-                    ),
+                  final isBookmarked = controller.bookmarks
+                      .any((b) => b.product.id == product.id)
+                      .obs;
+                  return ProductCard(
+                    product: product,
+                    isBookmarked: isBookmarked,
+                    onTap: () {
+                      controller.toggleBookmark(product);
+                      isBookmarked.value =
+                          !isBookmarked.value; // instantly update UI
+                    },
                   );
                 },
               ),

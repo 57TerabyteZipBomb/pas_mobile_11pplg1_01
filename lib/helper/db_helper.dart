@@ -33,7 +33,7 @@ class DBHelper {
             image TEXT,
             rate FLOAT,
             count INTEGER,
-            isBookmarked BOOL,
+            isBookmarked BOOL
           )
         ''');
       },
